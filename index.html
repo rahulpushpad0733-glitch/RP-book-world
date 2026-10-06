@@ -3,26 +3,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RP Book World</title>
+    <title>RP Book World | Premium Stories & Ghazals</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --primary: #1e293b;
+            --accent: #e11d48;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header & Nav */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-container i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .logo-container h1 {
+            font-family: 'Rozha One', serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 14px;
+        }
+
+        .search-box input::placeholder {
+            color: #cbd5e1;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #cbd5e1;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
             text-align: center;
-            background-color: #f4f4f9;
             padding: 50px 20px;
-            color: #333;
+            border-bottom: 4px solid var(--accent);
         }
-        h1 {
-            color: #2c3e50;
+
+        .hero h2 {
+            font-family: 'Rozha One', serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #f8fafc;
         }
-        p {
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* Category Filter Buttons */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            color: var(--text-main);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .book-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .book-cover {
+            height: 180px;
+            background: #cbd5e1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .book-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .book-title {
             font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .book-author {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .book-desc {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .read-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Full Reader Modal */
+        .reader-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            border-radius: 12px;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-title {
+            font-family: 'Rozha One', serif;
+            font-size: 28px;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .modal-author {
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #334155;
+            white-space: pre-line;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: #94a3b8;
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        footer strong {
+            color: white;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to RP Book World</h1>
-     <p>Kitab, Kahaniya aur Ghazal ka Behtareen Platform. Coming Soon!</p>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <i class="fa-solid fa-book-open-reader"></i>
+            <h1>RP Book World</h1>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="Kahaniya, Ghazal ya Author khojein...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <h2>Welcome to RP Book World</h2>
+        <p>Aapki pasandida Hindi Kahaniya, Novels, aur Behtareen Ghazalon ka sabse bada digital sangrah.</p>
+    </section>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Categories -->
+        <div class="category-filters">
+            <button class="filter-btn active" onclick="filterCategory('all')">Sabhi (All)</button>
+            <button class="filter-btn" onclick="filterCategory('kahani')">📖 Kahaniya</button>
+            <button class="filter-btn" onclick="filterCategory('novel')">📕 Novels</button>
+            <button class="filter-btn" onclick="filterCategory('ghazal')">✍️ Ghazal</button>
+        </div>
+
+        <!-- Books Grid Container -->
+        <div class="books-grid" id="booksGrid">
+            <!-- Content JS se dynamically load hoga -->
+        </div>
+    </div>
+
+    <!-- Reader Popup Modal -->
+    <div class="reader-modal" id="readerModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeReader()">&times;</span>
+            <h2 class="modal-title" id="modalTitle">Title</h2>
+            <div class="modal-author" id="modalAuthor">Author Name</div>
+            <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid #e2e8f0;">
+            <div class="modal-body" id="modalBody">
+                Story content will appear here...
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 <strong>RP Book World</strong>. All Rights Reserved. Crafted with ❤️ for Hindi Readers.</p>
+    </footer>
+
+    <!-- JavaScript Logic & Content Data -->
+    <script>
+        // EASY CONTENT UPLOAD SYSTEM: Yahan apni sari kahaniya aur kitabein add kar sakte ho!
+        const booksData = [
+            {
+                id: 1,
+                title: "Ek Nayi Shuruaat",
+                author: "Rahul Pushpad",
+                category: "kahani",
+                bgGradient: "linear-gradient(135deg, #ff7e5f, #feb47b)",
+                desc: "Ye ek aisi ladke ki prerak kahani hai jo har musibat ka samna karke apni kismat khud likhta hai...",
+                content: `Ek samay ki baat hai, ek chhote se gaon me ek mehnati ladka rehta tha. Uske paas sapne bade the par sadhan kam.
+
+Usne har roz thoda-thoda seekhna shuru kiya. Log kehte the ki ye aasan nahi hoga, lekin usne kabhi haar nahi mani.
+
+Aakhirkar, uski mehnat rang layi aur usne sabit kar dikhaya ki lagan aur mehnat se koi bhi lakshya hasil kiya ja sakta hai.`
+            },
+            {
+                id: 2,
+                title: "Dil Ki Bazaarein",
+                author: "RP Shayar",
+                category: "ghazal",
+                bgGradient: "linear-gradient(135deg, #6a11cb, #2575fc)",
+                desc: "Lafzon me bayaan na ho sake jo jazbaat, Basa ke rakha hai dil me wo purani baat...",
+                content: `Lafzon me bayaan na ho sake jo jazbaat,
+Basa ke rakha hai dil me wo purani baat.
+
+Khamoshiyon me bhi ek alag hi shor hai,
+Aankhon hi aankhon me ho jaati hai baat.`
+            },
+            {
+                id: 3,
+                title: "The Mysterious Journey",
+                author: "Rahul Pushpad",
+                category: "novel",
+                bgGradient: "linear-gradient(135deg, #11998e, #38ef7d)",
+                desc: "Rahasya aur romance se bhari ek shandar suspense novel...",
+                content: `Chapter 1: Anjana Safar
+
+Raat ke 12 baj rahe the. Charo taraf sannata thaa. Us purani haveli ki khidki se ek halki si roshni chhan kar bahar aa rahi thi...`
+            }
+        ];
+
+        // Function to render books
+        function displayBooks(items) {
+            const container = document.getElementById('booksGrid');
+            container.innerHTML = '';
+
+            if(items.length === 0) {
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Koi content nahi mila.</p>`;
+                return;
+            }
+
+            items.forEach(book => {
+                const card = document.createElement('div');
+                card.className = 'book-card';
+                card.innerHTML = `
+                    <div class="book-cover" style="background: ${book.bgGradient};">
+                        <span class="badge">${book.category}</span>
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">By ${book.author}</div>
+                        <div class="book-desc">${book.desc}</div>
+                        <button class="read-btn" onclick="openReader(${book.id})">
+                            <i class="fa-solid fa-book-open"></i> Padhna Shuru Karein
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Search Functionality
+        function searchBooks() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = booksData.filter(b => 
+                b.title.toLowerCase().includes(query) || 
+                b.author.toLowerCase().includes(query) ||
+                b.desc.toLowerCase().includes(query)
+            );
+            displayBooks(filtered);
+        }
+
+        // Category Filter Functionality
+        function filterCategory(cat) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if(cat === 'all') {
+                displayBooks(booksData);
+            } else {
+                const filtered = booksData.filter(b => b.category === cat);
+                displayBooks(filtered);
+            }
+        }
+
+        // Reader Modal Controls
+        function openReader(id) {
+            const book = booksData.find(b => b.id === id);
+            if(book) {
+                document.getElementById('modalTitle').innerText = book.title;
+                document.getElementById('modalAuthor').innerText = "Written by: " + book.author;
+                document.getElementById('modalBody').innerText = book.content;
+                document.getElementById('readerModal').style.display = 'flex';
+            }
+        }
+
+        function closeReader() {
+            document.getElementById('readerModal').style.display = 'none';
+        }
+
+        // Initial Load
+        displayBooks(booksData);
+    </script>
 </body>
 </html>
 
